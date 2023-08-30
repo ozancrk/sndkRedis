@@ -22,6 +22,6 @@ app.use(express.urlencoded({
 
 app.use("/api",router)
 
-app.listen(8000, () => {
+app.listen(80, () => {
 
 })
