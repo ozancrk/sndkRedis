@@ -40,6 +40,6 @@ client.on('error', (err) => {
     console.log("redis client err", err)
 })
 
-app.listen(80, () => {
+app.listen(8080, () => {
 
 })
