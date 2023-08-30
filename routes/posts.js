@@ -27,8 +27,11 @@ module.exports = (router) => {
                     postID: POSTID, postData: val,
                 })
             }).catch(err => {
+
+                console.log(err)
+
                 res.json({
-                    postID: POSTID, error: err.message, status: err.data.status
+                    postID: POSTID, error: err
                 })
             })
         } else {
