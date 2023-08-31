@@ -10,30 +10,23 @@ module.exports = (router) => {
         let value = await client.json.get(KEY)
 
         if (!value) {
-            await wp.posts().id(POSTID).get().then(async function (data) {
-                let val = {
-                    'title': data.title.rendered,
-                    'content': data.content.rendered,
-                    'excerpt': data.excerpt.rendered,
-                    'time': data.modified,
-                    'media': data.mediaURL
-                }
-                let t = new Date(data.modified.replace(' ', 'T') + 'Z').getTime() / 1000;
-                if ((Date.now() / 1000) - t < 60480000 || val.cache) {
-                    await client.json.set(KEY, '$', val)
-                    await client.expire(KEY, process.env.CACHETTL)
-                }
-                res.json({
-                    postID: POSTID, postData: val,
-                })
-            }).catch(err => {
-
-                console.log(err)
-
-                res.json({
-                    postID: POSTID, error: err
-                })
+            let data = await wp.posts().id(POSTID).get();
+            let val = {
+                'title': data.title.rendered,
+                'content': data.content.rendered,
+                'excerpt': data.excerpt.rendered,
+                'time': data.modified,
+                'media': data.mediaURL
+            }
+            let t = new Date(data.modified.replace(' ', 'T') + 'Z').getTime() / 1000;
+            if ((Date.now() / 1000) - t < 60480000 || val.cache) {
+                await client.json.set(KEY, '$', val)
+                await client.expire(KEY, process.env.CACHETTL)
+            }
+            res.json({
+                postID: POSTID, postData: val,
             })
+
         } else {
             res.json({
                 postID: POSTID, postData: value,
