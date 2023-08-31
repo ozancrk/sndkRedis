@@ -21,7 +21,7 @@ module.exports = (router) => {
                 let t = new Date(data.modified.replace(' ', 'T') + 'Z').getTime() / 1000;
                 if ((Date.now() / 1000) - t < 60480000 || val.cache) {
                     await client.json.set(KEY, '$', val)
-                    await client.expire(KEY, 86400)
+                    await client.expire(KEY, process.env.CACHETTL)
                 }
                 res.json({
                     postID: POSTID, postData: val,
