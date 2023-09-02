@@ -7,7 +7,7 @@ module.exports = (router) => {
         let value = await client.json.get(KEY)
 
         if (!value) {
-            let manset = await wp.posts().categories(70598).perPage(6).get();
+            let manset = await wp.posts().categories(70598).perPage(3).get();
             let yazilar = await wp.posts().categories(6).perPage(4).get();
 
             let value = {
