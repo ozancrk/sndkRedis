@@ -5,23 +5,26 @@ module.exports = (router) => {
     router.get("/category/:uid/:limit?", async (req, res) => {
 
         let redis = true;
-        let posts;
+        let items;
         const KEY = 'category:' + req.params.uid;
 
-        posts = await client.json.get(KEY)
-        if (!posts) {
+        items = await client.json.get(KEY)
+        if (!items) {
             let posts = await wp.posts()
                 .categories(req.params.uid)
                 .perPage(req.params.limit)
                 .get();
-            await client.json.set(KEY, '$', posts)
+            items = {
+                posts
+            }
+            await client.json.set(KEY, '$', items)
             await client.expire(KEY, process.env.CategoryCACHETTL)
             redis = false
         }
 
 
         res.json({
-            posts,
+            items,
             redis
         })
 
