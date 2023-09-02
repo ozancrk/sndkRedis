@@ -14,15 +14,12 @@ module.exports = (router) => {
             let val = {
                 'title': data.title.rendered,
                 'content': data.content.rendered,
-                'excerpt': data.excerpt.rendered,
-                'time': data.modified,
-                'media': data.mediaURL
             }
 
-            await client.json.set(KEY, '$', value[0])
+            await client.json.set(KEY, '$',val)
             await client.expire(KEY, process.env.CACHETTL)
             res.json({
-                page: url, postData: value[0],
+                page: url, postData: val,
             })
         } else {
             res.json({
