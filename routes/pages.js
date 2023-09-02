@@ -18,7 +18,6 @@ module.exports = (router) => {
             res.json({
                 page: url, postData: data,
             })
-
         } else {
             res.json({
                 page: url, postData: data,
