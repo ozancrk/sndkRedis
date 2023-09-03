@@ -1,7 +1,8 @@
 const wp = require("../wp/index.js")
 
+
 module.exports = (router) => {
-    router.get("/categorypage/:uid/:page?", async (req, res) => {
+    router.get("/categorypage/:slug/:page?", async (req, res) => {
         if (req.params.page === undefined) {
             req.params.page = 1;
         }
@@ -10,20 +11,32 @@ module.exports = (router) => {
         let error = false;
 
         let items;
-        let posts = await wp.posts()
-            .categories(req.params.uid)
-            .perPage(10)
-            .page(req.params.page)
-            .get();
+        let post;
 
-        if(posts.length < 1){
+        await wp.categories().slug(req.params.slug)
+
+            .then(async function (catMeta) {
+
+                let catID = catMeta[0];
+                return wp.posts().categories(catID.id).page(req.params.page).get();
+
+            })
+            .then(function (data) {
+
+                post = data;
+
+            });
+
+        console.log(post)
+
+        if (post.length < 1) {
             // HATA KODLARI EKLENİYOR
             status = 404;
             error = true;
         }
 
         items = {
-            posts
+            post
         }
         res.json({
             items, status, error
