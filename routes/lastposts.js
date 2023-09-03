@@ -1,29 +1,37 @@
 const wp = require("../wp/index.js")
-const client = require("../redis/index.js")
 
 module.exports = (router) => {
     router.get("/lastposts", async (req, res) => {
 
-        let redis = true;
+        //DEĞİŞKENLER
         let items;
-        const KEY = 'last:posts'
+        let status = '';
+        let error = false;
+        let posts = {}
 
-        items = await client.json.get(KEY)
-        if (!items) {
-            let posts = await wp.posts()
-                .get();
-            items = {
-                posts
-            }
-            await client.json.set(KEY, '$', items)
-            await client.expire(KEY, process.env.CategoryCACHETTL)
-            redis = false
+
+        await wp.posts()
+            .get().then(async function (data) {
+
+                // WORDPRESS'TEN VERİ ÇEKME BAŞARILI
+                posts = data
+
+                // BAŞARI KODU EKLENİYOR
+                status = 200;
+            }).catch(function (err) {
+
+                console.log(err)
+                // HATA KODLARI EKLENİYOR
+                status = 404;
+                error = true;
+            });
+
+        items = {
+            posts
         }
 
-
         res.json({
-            items,
-            redis
+            items, error, status
         })
 
     })

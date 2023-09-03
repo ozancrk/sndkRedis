@@ -1,30 +1,35 @@
 const wp = require("../wp/index.js")
-const client = require("../redis/index.js")
 
 module.exports = (router) => {
     router.get("/pages/:url", async (req, res) => {
 
+        //GELEN PAGE URL
         const url = req.params.url;
-        const KEY = 'page:' + url
-        let value = await client.json.get(KEY)
 
-        if (!value) {
-            let data = await wp.pages().slug(url).get();
+        //DEĞİŞKENLER
+        let status = '';
+        let val = {};
+        let error = false;
 
-            let val = {
-                'title': data.title.rendered,
-                'content': data.content.rendered,
+
+        await wp.pages().slug(url).get().then(async function (data) {
+            val = {
+                'title': data[0].title.rendered, 'content': data[0].content.rendered,
             }
+            // BAŞARI KODU EKLENİYOR
+            status = 200;
+        }).catch(function () {
 
-            await client.json.set(KEY, '$',val)
-            await client.expire(KEY, process.env.CACHETTL)
-            res.json({
-                page: url, postData: val,
-            })
-        } else {
-            res.json({
-                page: url, postData: value,
-            })
-        }
+            // HATA KODLARI EKLENİYOR
+            status = 404;
+            error = true;
+
+        });
+
+
+        res.json({
+            page: url, postData: val, status, error
+        })
+
     })
 }
