@@ -8,9 +8,8 @@ module.exports = (router) => {
 
         if (!items) {
             let manset = await wp.posts().categories(70598).perPage(3).get();
-            let yazilar = await wp.posts().categories(6).perPage(4).get();
             let items = {
-                manset,yazilar
+                manset
             }
             await client.json.set(KEY, '$', items)
             await client.expire(KEY, process.env.HomeCACHETTL)
