@@ -30,8 +30,7 @@ module.exports = (router) => {
                     'excerpt': data.excerpt.rendered,
                     'time': data.modified,
                     'media': data.mediaURL,
-                    'customMeta': data.customMeta,
-                    'postURL': data.postURL
+                    'customMeta': data.customMeta
                 }
 
                 // POSTUN TARİHİ KONTROL EDİLİYOR
