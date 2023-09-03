@@ -7,10 +7,12 @@ module.exports = (router) => {
         let items = await client.json.get(KEY)
 
         if (!items) {
-            let manset = await wp.posts().categories(70598).perPage(3).get();
-            let items = {
-                manset
-            }
+            await wp.posts().categories(70598).perPage(3).get().then((manset) => {
+                items = {
+                    manset
+                }
+            });
+
             await client.json.set(KEY, '$', items)
             await client.expire(KEY, process.env.HOMECACHETTL)
             res.json({
