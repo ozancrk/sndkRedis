@@ -12,12 +12,13 @@ module.exports = (router) => {
 
         let items;
         let post;
+        let catID;
 
         await wp.categories().slug(req.params.slug)
 
             .then(async function (catMeta) {
 
-                let catID = catMeta[0];
+                catID = catMeta[0];
                 return wp.posts().categories(catID.id).perPage(12).page(req.params.page).get();
 
             })
@@ -39,7 +40,7 @@ module.exports = (router) => {
             post
         }
         res.json({
-            items, status, error
+            items, status, error, catName: catID.name
         })
     })
 }
