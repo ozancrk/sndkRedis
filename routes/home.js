@@ -12,7 +12,7 @@ module.exports = (router) => {
                 manset
             }
             await client.json.set(KEY, '$', items)
-            await client.expire(KEY, process.env.HomeCACHETTL)
+            await client.expire(KEY, process.env.HOMECACHETTL)
             res.json({
                 items
             })

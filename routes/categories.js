@@ -35,7 +35,7 @@ module.exports = (router) => {
                     }
 
                     await client.json.set(KEY, '$', items)
-                    await client.expire(KEY, process.env.CategoryCACHETTL)
+                    await client.expire(KEY, process.env.CATEGORYCACHETTL)
                     await client.expire(KEY, process.env.CACHETTL)
 
                     // BAŞARI KODU EKLENİYOR
