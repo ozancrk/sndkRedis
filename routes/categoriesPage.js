@@ -18,7 +18,7 @@ module.exports = (router) => {
             .then(async function (catMeta) {
 
                 let catID = catMeta[0];
-                return wp.posts().categories(catID.id).page(req.params.page).get();
+                return wp.posts().categories(catID.id).perPage(12).page(req.params.page).get();
 
             })
             .then(function (data) {
