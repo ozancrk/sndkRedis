@@ -1,32 +1,23 @@
-const wp = require("../wp/index.js")
-
-
 module.exports = (router) => {
-    router.get("/author/:slug/:page?", async (req, res) => {
+    router.get("/author/:type/:uid/:page?", async (req, res) => {
         if (req.params.page === undefined) {
             req.params.page = 1;
         }
 
+        const getData = async (url) => {
+            const res = await fetch(process.env.WPENDPOINT+"/wp-json/wp/v2/"+url)
+            return res.json()
+        };
+
         let status = 200;
         let error = false;
-
         let items;
-        let post;
-        let catID;
+        let post = [];
+       
 
-        await wp.tags().slug(req.params.slug)
+        let url = 'posts/?'+req.params.type+'='+req.params.uid
 
-            .then(async function (catMeta) {
-
-                catID = catMeta[0];
-                return wp.posts().tag(catID.id).perPage(12).page(req.params.page).get();
-
-            })
-            .then(function (data) {
-
-                post = data;
-
-            });
+        post = await getData(url)
 
         if (post.length < 1) {
             // HATA KODLARI EKLENİYOR
@@ -38,7 +29,7 @@ module.exports = (router) => {
             post
         }
         res.json({
-            items, status, error, catName: catID.name
+            items, status, error
         })
     })
 }

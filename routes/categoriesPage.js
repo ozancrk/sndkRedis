@@ -28,12 +28,20 @@ module.exports = (router) => {
 
             });
 
+        console.log(post)
 
+/*
         if (post.length < 1) {
             // HATA KODLARI EKLENİYOR
             status = 404;
             error = true;
         }
+
+        if (post.data){
+            if(post.data.status === 400){
+                status = 404;
+                error = true;
+            }}*/
 
         items = {
             post
