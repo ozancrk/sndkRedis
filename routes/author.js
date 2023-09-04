@@ -13,7 +13,7 @@ module.exports = (router) => {
         let error = false;
         let items;
         let post = [];
-       
+
 
         let url = 'posts/?'+req.params.type+'='+req.params.uid
 

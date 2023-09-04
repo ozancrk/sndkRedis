@@ -9,8 +9,13 @@ module.exports = (router) => {
         let error = false;
         let posts = {}
 
+        var date = new Date();
+
+        date.setDate(date.getDate() - 1);
 
         await wp.posts()
+            .perPage(48)
+            .after(date.toISOString())
             .get().then(async function (data) {
 
                 // WORDPRESS'TEN VERİ ÇEKME BAŞARILI
