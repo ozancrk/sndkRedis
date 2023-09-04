@@ -26,7 +26,7 @@ app.use(express.urlencoded({
 app.use("/api", router)
 
 client.on('connect', () => {
-    console.log("redis client ok")
+
 })
 
 client.connect().then(()=>{

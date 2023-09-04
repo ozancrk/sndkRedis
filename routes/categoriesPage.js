@@ -28,7 +28,6 @@ module.exports = (router) => {
 
             });
 
-        console.log(post)
 
         if (post.length < 1) {
             // HATA KODLARI EKLENİYOR
