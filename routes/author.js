@@ -2,19 +2,24 @@ const wp = require("../wp/index.js")
 
 
 module.exports = (router) => {
-    router.get("/author/:slug", async (req, res) => {
+    router.get("/author/:slug/:page?", async (req, res) => {
+        if (req.params.page === undefined) {
+            req.params.page = 1;
+        }
 
+        let status = 200;
+        let error = false;
 
-        let a = {}
+        let items;
+        let post;
+        let catID;
 
-        await wp.tags().slug('ozan-cirik')
+        await wp.tags().slug(req.params.slug)
 
             .then(async function (catMeta) {
 
-
-
                 catID = catMeta[0];
-                return wp.posts().categories(catID.id).perPage(12).page(req.params.page).get();
+                return wp.posts().tag(catID.id).perPage(12).page(req.params.page).get();
 
             })
             .then(function (data) {
@@ -23,9 +28,17 @@ module.exports = (router) => {
 
             });
 
-        res.json({
-            ozan: 'ozan', a
-        })
+        if (post.length < 1) {
+            // HATA KODLARI EKLENİYOR
+            status = 404;
+            error = true;
+        }
 
+        items = {
+            post
+        }
+        res.json({
+            items, status, error, catName: catID.name
+        })
     })
 }
