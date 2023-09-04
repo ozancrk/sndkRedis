@@ -10,6 +10,10 @@ module.exports = (router) => {
         let status = 200;
         let error = false;
 
+        if(req.params.limit){
+            req.params.limit = 12
+        }
+
 
         //REDİS KEY
         const KEY = 'category:' + req.params.uid;
@@ -41,11 +45,11 @@ module.exports = (router) => {
                     status = 200;
                     error = false;
                     redis = false
-                }).catch(function () {
+                }).catch(function (err) {
 
                     // HATA KODLARI EKLENİYOR
                     status = 404;
-                    error = true;
+                    error = err;
                 });
 
         }

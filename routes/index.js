@@ -5,6 +5,7 @@ const LastpostsFn = require("./lastposts.js");
 const PagesFn = require("./pages.js");
 const CategoriesPageFn = require("./categoriesPage.js");
 const AuthorFn = require("./author.js");
+const SonhaberFN = require("./sonhaberler.js");
 
 const RouterArrFn = [
     PostsFn,
@@ -13,7 +14,8 @@ const RouterArrFn = [
     LastpostsFn,
     PagesFn,
     CategoriesPageFn,
-    AuthorFn
+    AuthorFn,
+    SonhaberFN
 ]
 
 module.exports = RouterArrFn;
