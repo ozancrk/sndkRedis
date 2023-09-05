@@ -28,14 +28,14 @@ module.exports = (router) => {
                     'title': data.title.rendered,
                     'content': data.content.rendered,
                     'excerpt': data.excerpt.rendered,
-                    'time': data.modified_gmt,
+                    'time': data.date,
                     'media': data.mediaURL,
                     'customMeta': data.customMeta,
                     'categories': data.categories
                 }
 
                 // POSTUN TARİHİ KONTROL EDİLİYOR
-                let t = new Date(data.modified_gmt.replace(' ', 'T') + 'Z').getTime() / 1000;
+                let t = new Date(data.date.replace(' ', 'T') + 'Z').getTime() / 1000;
                 if ((Date.now() / 1000) - t < 60480000 || val.cache) {
                     // POST 1 HAFTADAN YENİ İSE REDİS'E KAYDEDİLİYOR
                     await client.json.set(KEY, '$', val)
