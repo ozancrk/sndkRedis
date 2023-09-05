@@ -18,6 +18,8 @@ module.exports = (router) => {
         //REDİS KEY
         const KEY = 'category:' + req.params.uid;
 
+
+
         items = await client.json.get(KEY)
         if (!items) {
             await wp.posts()
@@ -33,9 +35,15 @@ module.exports = (router) => {
                         return;
                     }
 
+
+                    let catMeta = await wp.categories().id(req.params.uid).get();
+
+
+
                     // WORDPRESS'TEN VERİ ÇEKME BAŞARILI
                     items = {
-                        postData
+                        postData,
+                        catMeta
                     }
 
                     await client.json.set(KEY, '$', items)
