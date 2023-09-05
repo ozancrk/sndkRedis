@@ -5,6 +5,7 @@ const LastpostsFn = require("./lastposts.js");
 const PagesFn = require("./pages.js");
 const AuthorFn = require("./author.js");
 const SonhaberFN = require("./sonhaberler.js");
+const delegeCacheFN = require("./deleteCache.js");
 
 const RouterArrFn = [
     PostsFn,
@@ -13,7 +14,8 @@ const RouterArrFn = [
     LastpostsFn,
     PagesFn,
     AuthorFn,
-    SonhaberFN
+    SonhaberFN,
+    delegeCacheFN
 ]
 
 module.exports = RouterArrFn;
