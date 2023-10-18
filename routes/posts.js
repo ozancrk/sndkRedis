@@ -29,7 +29,8 @@ module.exports = (router) => {
                     'content': data.content.rendered,
                     'excerpt': data.excerpt.rendered,
                     'time': data.date,
-                    'media': data.mediaURLFULL,
+                    'media': data.mediaURL,
+                    'mediaFull': data.mediaURLFULL,
                     'customMeta': data.customMeta,
                     'categories': data.categories
                 }
