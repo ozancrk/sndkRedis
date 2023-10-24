@@ -26,7 +26,9 @@ module.exports = (router) => {
                 status = 200;
             }).catch(function (err) {
 
+                console.log('ERROR......')
                 console.log(err)
+                console.log('ERROR......')
                 // HATA KODLARI EKLENİYOR
                 status = 404;
                 error = true;
