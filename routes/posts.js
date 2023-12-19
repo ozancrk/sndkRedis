@@ -32,7 +32,8 @@ module.exports = (router) => {
                     'media': data.mediaURL,
                     'mediaFull': data.mediaURLFULL,
                     'customMeta': data.customMeta,
-                    'categories': data.categories
+                    'categories': data.categories,
+                    'link': data.link,
                 }
 
                 // POSTUN TARİHİ KONTROL EDİLİYOR
