@@ -21,7 +21,6 @@ module.exports = (router) => {
             .page(req.params.page)
             .get().then(async function (postData) {
 
-
                 if (postData.length < 1) {
                     // HATA KODLARI EKLENİYOR
                     status = 404;
