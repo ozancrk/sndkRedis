@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sndkRedis.iml" filepath="$PROJECT_DIR$/.idea/sndkRedis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SendikaOrgAPIGateWay.iml" filepath="$PROJECT_DIR$/.idea/SendikaOrgAPIGateWay.iml" />
     </modules>
   </component>
 </project>

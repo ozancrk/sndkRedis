@@ -2,7 +2,7 @@ const wp = require("../wp/index.js")
 const client = require("../redis/index.js")
 
 module.exports = (router) => {
-    router.get("/search/:query/:limit?", async (req, res) => {
+    router.get("/search/:query/:page?", async (req, res) => {
 
         //DEĞİŞKENLER
 
@@ -17,7 +17,8 @@ module.exports = (router) => {
 
         await wp.posts()
             .search(req.params.query)
-            .perPage(req.params.limit)
+            .perPage(12)
+            .page(req.params.page)
             .get().then(async function (postData) {
 
 
